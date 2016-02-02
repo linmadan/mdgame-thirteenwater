@@ -12,7 +12,7 @@ describe('AThirteenWater use case test', function () {
             var gameData = {};
             gameData.gameID = "game-1";
             gameData.ruleName = "general";
-            gameData.players = [{playerID: "linmadan", playerName: "linmadan"}]
+            gameData.players = [{playerID: "linmadan"}]
             aThirteenWater.initGame(gameData, function (err) {
                 err.message.should.be.eql(appError.NOT_ENOUGH_PLAYERS);
                 done();
@@ -22,10 +22,10 @@ describe('AThirteenWater use case test', function () {
             var gameData = {};
             gameData.gameID = "game-1";
             gameData.ruleName = "norule";
-            gameData.players = [{playerID: "linmadan", playerName: "linmadan"},
-                {playerID: "huhuzhu", playerName: "huhuzhu"},
-                {playerID: "tutu", playerName: "tutu"},
-                {playerID: "uerltd", playerName: "uerltd"}];
+            gameData.players = [{playerID: "linmadan"},
+                {playerID: "huhuzhu"},
+                {playerID: "tutu"},
+                {playerID: "uerltd"}];
             aThirteenWater.initGame(gameData, function (err) {
                 err.message.should.be.eql(appError.NOT_THIS_RULE);
                 done();
@@ -35,17 +35,17 @@ describe('AThirteenWater use case test', function () {
             var gameData = {};
             gameData.gameID = "game-1";
             gameData.ruleName = "general";
-            gameData.players = [{playerID: "linmadan", playerName: "linmadan"},
-                {playerID: "huhuzhu", playerName: "huhuzhu"},
-                {playerID: "tutu", playerName: "tutu"},
-                {playerID: "uerltd", playerName: "uerltd"}];
+            gameData.players = [{playerID: "linmadan"},
+                {playerID: "huhuzhu"},
+                {playerID: "tutu"},
+                {playerID: "uerltd"}];
             aThirteenWater.initGame(gameData, function (err, cbData) {
                 cbData.gameID.should.be.eql("game-1");
                 cbData.players.should.be.eql({
-                    linmadan: {name: "linmadan", isPalyAHand: false},
-                    huhuzhu: {name: "huhuzhu", isPalyAHand: false},
-                    tutu: {name: "tutu", isPalyAHand: false},
-                    uerltd: {name: "uerltd", isPalyAHand: false}
+                    linmadan: {isPalyAHand: false},
+                    huhuzhu: {isPalyAHand: false},
+                    tutu: {isPalyAHand: false},
+                    uerltd: {isPalyAHand: false}
                 });
                 done();
             });
@@ -172,7 +172,6 @@ describe('AThirteenWater use case test', function () {
             playerData.playerID = "linmadan";
             aThirteenWater.playerViewsShowDownResult(playerData, function (err, cbData) {
                 cbData.playerID.should.be.eql("linmadan");
-                cbData.results["linmadan"].playerName.should.be.eql("linmadan");
                 cbData.results["linmadan"].firstCardStack.cards.length.should.be.eql(3);
                 cbData.results["linmadan"].middleCardStack.cards.length.should.be.eql(5);
                 cbData.results["linmadan"].endCardStack.cards.length.should.be.eql(5);
@@ -232,10 +231,10 @@ describe('AThirteenWater use case test', function () {
             var gameData = {};
             gameData.gameID = "game-2";
             gameData.ruleName = "general";
-            gameData.players = [{playerID: "linmadan", playerName: "linmadan"},
-                {playerID: "huhuzhu", playerName: "huhuzhu"},
-                {playerID: "tutu", playerName: "tutu"},
-                {playerID: "uerltd", playerName: "uerltd"}];
+            gameData.players = [{playerID: "linmadan"},
+                {playerID: "huhuzhu"},
+                {playerID: "tutu"},
+                {playerID: "uerltd"}];
             aThirteenWater.initGame(gameData, function (err, cbData) {
             });
         });
@@ -267,7 +266,6 @@ describe('AThirteenWater use case test', function () {
             });
             var playerData = {};
             playerData.playerID = "linmadan";
-            playerData.playerName = "linmadan";
             aThirteenWater.playerRunAway(playerData);
             aThirteenWater.__runAwayPlayers__[playerData.playerID].should.be.eql("linmadan");
             aThirteenWater.removeAllListeners(thirteenWater.domainEvent.PLAYER_PLAY_A_HAND);
